@@ -17,4 +17,7 @@
         way! Get to the streets, talk to actual customers and start your next business!
     </string>
     <string name="title_activity_add_new_question">Add Questions</string>
+    <string name="sample_question">Why did you start your business?</string>
+    <string name="sample_answer">I started this business because I won a lottery and didn\'t know what to do with my millions! You see, am pretty smart bro!</string>
+    <string name="date_added">09/19/206</string>
 </resources>
