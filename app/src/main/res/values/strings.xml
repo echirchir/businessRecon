@@ -9,4 +9,11 @@
 
     </string>
     <string name="stats">Completed Surveys</string>
+    <string name="goal">The Goal</string>
+    <string name="goal_desc">Starting the right business takes both skill and motivation!
+
+       By asking the right questions, you get an opportunity to pinpoint the market gap and eventually craft the best
+        business model that will reward you! \nIdentifying a business opportunity is hard but it does not have to be that
+        way! Get to the streets, talk to actual customers and start your next business!
+    </string>
 </resources>
