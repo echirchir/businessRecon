@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Business Recon</string>
+    <string name="action_settings">Settings</string>
+    <string name="title">What is Business Recon?</string>
+    <string name="description">Create study questions, complete surveys
+        and gain insight into potential business opportunities!
+        \n
+        \nGet the answers you need to the questions you have all in one place.
+
+    </string>
+    <string name="stats">Completed Surveys</string>
+</resources>
