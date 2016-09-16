@@ -5,9 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/guillotine_background_dark"
+    android:background="@color/core_background_dark"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.simpledeveloper.businesssrecon.BusinessReconActivity"
+    tools:context="com.simpledeveloper.businesssrecon.activities.BusinessReconActivity"
     tools:showIn="@layout/activity_business_recon">
 
     <LinearLayout
@@ -21,7 +21,7 @@
             android:id="@+id/card_view"
             android:layout_width="match_parent"
             android:layout_weight=".6"
-            cardView:cardBackgroundColor="@color/guillotine_background"
+            cardView:cardBackgroundColor="@color/core_background"
             cardView:cardCornerRadius="3dp"
             android:layout_height="0dp"
             android:layout_margin="8dp">
@@ -59,7 +59,7 @@
             xmlns:cardView="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_weight=".4"
-            cardView:cardBackgroundColor="@color/guillotine_background"
+            cardView:cardBackgroundColor="@color/core_background"
             cardView:cardCornerRadius="3dp"
             android:layout_height="0dp"
             android:layout_margin="8dp">
@@ -94,7 +94,7 @@
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:cardView="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
-            cardView:cardBackgroundColor="@color/guillotine_background"
+            cardView:cardBackgroundColor="@color/core_background"
             cardView:cardCornerRadius="3dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp">

@@ -22,7 +22,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:minHeight">?attr/actionBarSize</item>
         <item name="android:windowNoTitle">true</item>
-        <item name="android:background">@color/guillotine_background</item>
+        <item name="android:background">@color/core_background</item>
     </style>
 
 </resources>

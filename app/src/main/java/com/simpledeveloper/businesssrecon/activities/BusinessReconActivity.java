@@ -1,4 +1,4 @@
-package com.simpledeveloper.businesssrecon;
+package com.simpledeveloper.businesssrecon.activities;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
+import com.simpledeveloper.businesssrecon.R;
 
 public class BusinessReconActivity extends AppCompatActivity {
 
