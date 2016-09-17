@@ -289,7 +289,7 @@ public class AddNewQuestionActivity extends AppCompatActivity implements SearchV
                                 showInputDialog(true, position);
                                 return true;
                             }else if(id == R.id.action_delete){
-
+                                confirmDeleteAction(position);
                                 return true;
                             }
 
@@ -339,6 +339,8 @@ public class AddNewQuestionActivity extends AppCompatActivity implements SearchV
                         mRealm.beginTransaction();
                         questionsToDelete.deleteAllFromRealm();
                         mRealm.commitTransaction();
+                        mAdapter.remove(position);
+                        mAdapter.notifyDataSetChanged();
 
                         dialog.dismiss();
                     }

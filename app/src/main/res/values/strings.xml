@@ -34,6 +34,6 @@
     <string name="question_cannot_be_empty">Question field cannot be empty!</string>
     <string name="update_button">UPDATE</string>
     <string name="confirm_delete_question">Sure want to delete this question?</string>
-    <string name="delete_details">Deleting this question will delete any associated answers previous recorded!</string>
+    <string name="delete_details">Deleting this question will delete any associated answers previously recorded!</string>
     <string name="delete_button">DELETE</string>
 </resources>
