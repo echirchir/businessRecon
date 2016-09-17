@@ -14,22 +14,47 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/core_background"
-        android:padding="8dp"
+        android:padding="4dp"
+        android:layout_marginBottom="8dp"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight=".3"
-            android:gravity="center_vertical"
-            android:layout_gravity="center_vertical">
+            android:gravity="center_horizontal"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:background="@color/core_background"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_weight=".1">
+
+            <ImageView
+                android:id="@+id/question_number"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal|center"
+                android:background="@android:color/transparent"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".2"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/core_background"
+            android:gravity="center_horizontal">
 
             <TextView
                 android:id="@+id/question"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="22sp"
+                android:textSize="18sp"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_horizontal|center_vertical"
+                android:padding="8dp"
                 android:text="@string/sample_question"
                 android:textColor="@color/colorAccent"/>
 
@@ -38,14 +63,18 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight=".5">
+            android:background="@color/core_background"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:layout_weight=".7">
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/answer_wrapper_wrapper"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="200dp"
                 android:orientation="vertical"
-                android:layout_marginTop="8dp"
+                android:padding="4dp"
+                android:layout_margin="8dp"
                 android:background="@drawable/rounded_edittext_background"
                 android:layout_marginBottom="8dp">
 
@@ -54,7 +83,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="22sp"
-                    android:minLines="5"
+                    android:minLines="8"
+                    android:padding="4dp"
                     android:gravity="start"
                     android:background="@android:color/transparent"
                     android:inputType="textCapSentences|textMultiLine"
@@ -65,8 +95,6 @@
 
         </LinearLayout>
 
-
     </LinearLayout>
-
 
 </LinearLayout>
