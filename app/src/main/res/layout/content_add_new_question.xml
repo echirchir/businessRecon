@@ -7,13 +7,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
+    android:background="@color/core_background_dark"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.simpledeveloper.businesssrecon.activities.AddNewQuestionActivity"
     tools:showIn="@layout/activity_add_new_question">
 
+    <TextView
+        android:id="@+id/no_questions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:padding="30dp"
+        android:textSize="18sp"
+        android:visibility="visible"
+        android:textColor="@color/colorAccent"
+        android:gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="@string/no_survey_questions"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler"
         android:scrollbars="vertical"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
