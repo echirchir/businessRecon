@@ -25,4 +25,5 @@
     <string name="search_questions">Search questions …</string>
     <string name="action_answers">View Answers</string>
     <string name="no_survey_questions">You have no survey questions added. Add them using the button below!</string>
+    <string name="sample_date">Oct 24, 2015</string>
 </resources>
