@@ -98,6 +98,9 @@ public class SurveyActivity extends AppCompatActivity {
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_survey, container, false);
 
+            getActivity().getWindow().setSoftInputMode(
+                    WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
             TextView textView = (TextView) rootView.findViewById(R.id.question);
             int qPosition = getArguments().getInt(ARG_SECTION_NUMBER);
             if (qPosition < questions.size()){
