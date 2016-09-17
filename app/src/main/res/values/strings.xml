@@ -20,4 +20,7 @@
     <string name="sample_question">Why did you start your business?</string>
     <string name="sample_answer">I started this business because I won a lottery and didn\'t know what to do with my millions! You see, am pretty smart bro!</string>
     <string name="date_added">09/19/206</string>
+    <string name="action_add">Add Questions</string>
+    <string name="search">Search</string>
+    <string name="search_questions">Search questions ...</string>
 </resources>

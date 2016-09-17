@@ -1,5 +1,6 @@
 package com.simpledeveloper.businesssrecon.activities;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -51,7 +52,8 @@ public class BusinessReconActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_add) {
+            startActivity(new Intent(this, AddNewQuestionActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);
