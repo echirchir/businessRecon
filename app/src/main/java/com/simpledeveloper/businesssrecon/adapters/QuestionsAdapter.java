@@ -40,7 +40,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionViewHolder>{
 
     @Override
     public int getItemCount() {
-        return 0;
+        return questions.size();
     }
 
     public void remove(int position){
