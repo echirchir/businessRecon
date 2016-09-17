@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.simpledeveloper.businesssrecon.R;
 import com.simpledeveloper.businesssrecon.db.Answer;
+import com.simpledeveloper.businesssrecon.db.Question;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -34,20 +35,26 @@ public class BusinessReconActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: 9/17/16 complete the actual survey
+                startActivity(new Intent(BusinessReconActivity.this, SurveyActivity.class));
             }
         });
 
         Realm realm = Realm.getDefaultInstance();
 
         RealmResults<Answer> answers = realm.where(Answer.class).findAllSorted("id");
+        RealmResults<Question> questions = realm.where(Question.class).findAllSorted("id");
 
-        ImageView rounded = (ImageView) findViewById(R.id.stats_value);
+        ImageView surveysRounded = (ImageView) findViewById(R.id.stats_value);
+        ImageView questionsRounded = (ImageView) findViewById(R.id.questions_value);
 
-        assert rounded != null;
-        TextDrawable drawable = TextDrawable.builder().buildRound((answers.isEmpty() ? ""+answers.size() : "0"), Color
+        assert surveysRounded != null;
+        TextDrawable drawable1 = TextDrawable.builder().buildRound((!answers.isEmpty() ? ""+answers.size() : "0"), Color
                 .LTGRAY);
-        rounded.setImageDrawable(drawable);
+        surveysRounded.setImageDrawable(drawable1);
+
+        TextDrawable drawable2 = TextDrawable.builder().buildRound((!questions.isEmpty() ? ""+questions.size() : "0"), Color
+                .LTGRAY);
+        questionsRounded.setImageDrawable(drawable2);
     }
 
     @Override
