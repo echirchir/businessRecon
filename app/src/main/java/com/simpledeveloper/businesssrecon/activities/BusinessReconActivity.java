@@ -73,7 +73,7 @@ public class BusinessReconActivity extends AppCompatActivity {
             startActivity(new Intent(this, AddNewQuestionActivity.class));
             return true;
         }else if(id == R.id.action_answers){
-            startActivity(new Intent(this, SurveyActivity.class));
+            startActivity(new Intent(this, SurveyAnswersActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);

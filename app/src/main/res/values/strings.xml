@@ -39,4 +39,7 @@
     <string name="title_activity_survey">Take Survey</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="answer_hint">Answer</string>
+    <string name="title_activity_survey_answers">Survey Answers</string>
+    <string name="no_survey_answers">You have not completed any surveys at the moment. Use the button below to start!</string>
+    <string name="search_answers">Search answers ...</string>
 </resources>

@@ -29,7 +29,12 @@
         <activity
             android:name=".activities.SurveyActivity"
             android:label="@string/title_activity_survey"
-            android:windowSoftInputMode="adjustPan"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan">
+        </activity>
+        <activity
+            android:name=".activities.SurveyAnswersActivity"
+            android:label="@string/title_activity_survey_answers"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
