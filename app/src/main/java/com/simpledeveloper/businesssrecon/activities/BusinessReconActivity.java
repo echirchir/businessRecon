@@ -13,6 +13,10 @@ import android.widget.ImageView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.simpledeveloper.businesssrecon.R;
+import com.simpledeveloper.businesssrecon.db.Answer;
+
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class BusinessReconActivity extends AppCompatActivity {
 
@@ -34,10 +38,15 @@ public class BusinessReconActivity extends AppCompatActivity {
             }
         });
 
+        Realm realm = Realm.getDefaultInstance();
+
+        RealmResults<Answer> answers = realm.where(Answer.class).findAllSorted("id");
+
         ImageView rounded = (ImageView) findViewById(R.id.stats_value);
 
         assert rounded != null;
-        TextDrawable drawable = TextDrawable.builder().buildRound("25", Color.LTGRAY);
+        TextDrawable drawable = TextDrawable.builder().buildRound((answers.isEmpty() ? ""+answers.size() : "0"), Color
+                .LTGRAY);
         rounded.setImageDrawable(drawable);
     }
 

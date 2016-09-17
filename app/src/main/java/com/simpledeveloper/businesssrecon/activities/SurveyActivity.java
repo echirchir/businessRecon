@@ -16,12 +16,20 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.simpledeveloper.businesssrecon.R;
+import com.simpledeveloper.businesssrecon.db.Question;
+
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class SurveyActivity extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
     private ViewPager mViewPager;
+
+    private Realm mRealm;
+
+    private static RealmResults<Question> questions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +39,14 @@ public class SurveyActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        mRealm = Realm.getDefaultInstance();
+
+        questions = mRealm.where(Question.class).findAllSorted("id");
+
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), questions.size());
 
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -46,7 +57,6 @@ public class SurveyActivity extends AppCompatActivity {
         });
 
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -78,7 +88,7 @@ public class SurveyActivity extends AppCompatActivity {
         public static SurveyQuestionFragment newInstance(int sectionNumber) {
             SurveyQuestionFragment fragment = new SurveyQuestionFragment();
             Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            args.putInt(ARG_SECTION_NUMBER, sectionNumber -1);
             fragment.setArguments(args);
             return fragment;
         }
@@ -87,20 +97,25 @@ public class SurveyActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_survey, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+
+            TextView textView = (TextView) rootView.findViewById(R.id.question);
+            int qPosition = getArguments().getInt(ARG_SECTION_NUMBER);
+            if (qPosition < questions.size()){
+                textView.setText(questions.get(qPosition).getQuestion());
+            }
+
             return rootView;
         }
     }
 
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        public SectionsPagerAdapter(FragmentManager fm) {
+        private int sizeOfQuestions;
+
+        public SectionsPagerAdapter(FragmentManager fm, int size) {
             super(fm);
+
+            this.sizeOfQuestions = size;
         }
 
         @Override
@@ -110,20 +125,12 @@ public class SurveyActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 3;
+            return sizeOfQuestions;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return "SECTION 1";
-                case 1:
-                    return "SECTION 2";
-                case 2:
-                    return "SECTION 3";
-            }
+
             return null;
         }
     }
