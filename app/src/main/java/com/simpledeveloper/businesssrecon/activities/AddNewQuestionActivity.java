@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.simpledeveloper.businesssrecon.R;
 import com.simpledeveloper.businesssrecon.adapters.QuestionsAdapter;
+import com.simpledeveloper.businesssrecon.db.Answer;
 import com.simpledeveloper.businesssrecon.listeners.OnItemClickListener;
 import com.simpledeveloper.businesssrecon.listeners.RecyclerItemClickListener;
 import com.simpledeveloper.businesssrecon.ui.Question;
@@ -178,7 +179,6 @@ public class AddNewQuestionActivity extends AppCompatActivity implements SearchV
                             .findFirst();
                     if (edit != null){
 
-
                         mRealm.beginTransaction();
                         edit.setQuestion(questionValue);
                         edit.setUpdatedAt(Utils.getCurrentDate());
@@ -307,6 +307,48 @@ public class AddNewQuestionActivity extends AppCompatActivity implements SearchV
             }
         }
     };
+
+    void confirmDeleteAction(final int position){
+        new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.confirm_delete_question))
+                .setMessage(getString(R.string.delete_details))
+                .setCancelable(false)
+                .setPositiveButton(R.string.delete_button, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        RealmResults<com.simpledeveloper.businesssrecon.db.Question> questionsToDelete = mRealm.where(com.simpledeveloper.businesssrecon.db.Question
+                                .class)
+                                .equalTo("id", mAdapter.getItem(position).getId())
+                                .findAllSorted("id");
+
+                        mRealm.beginTransaction();
+
+                        for (int i = 0; i < questionsToDelete.size(); i++) {
+                            RealmResults<Answer> answersByQuestionId = mRealm.where(Answer.class)
+                                    .equalTo("questionId", questionsToDelete.get(i).getId())
+                                    .findAll();
+                            if (!answersByQuestionId.isEmpty()){
+                                answersByQuestionId.deleteAllFromRealm();
+                            }
+
+                        }
+
+                        mRealm.commitTransaction();
+
+                        mRealm.beginTransaction();
+                        questionsToDelete.deleteAllFromRealm();
+                        mRealm.commitTransaction();
+
+                        dialog.dismiss();
+                    }
+                }).setNegativeButton(getString(android.R.string.cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        }).show();
+    }
 
     @Override
     public boolean onQueryTextSubmit(String query) {
