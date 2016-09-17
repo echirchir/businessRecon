@@ -17,7 +17,7 @@ public class ReconApp extends Application {
         Stetho.newInitializerBuilder(this)
                 .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
                 .enableWebKitInspector(RealmInspectorModulesProvider.builder(this).build())
-                .build());
+                .build();
 
         RealmConfiguration config = new RealmConfiguration.Builder(this)
                 .schemaVersion(0)

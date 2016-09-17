@@ -6,9 +6,10 @@ import io.realm.annotations.PrimaryKey;
 
 public class Question extends RealmObject {
 
-    @PrimaryKey
     @Index
+    @PrimaryKey
     private long id;
+
     private String question;
     private String createdAt;
     private String updatedAt;

@@ -7,8 +7,9 @@
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:padding="8dp"
+        android:paddingBottom="8dp"
         android:background="@color/core_background"
         android:layout_weight="1"
         android:orientation="vertical">
@@ -20,14 +21,6 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/colorAccent"
             android:text="@string/sample_question"/>
-
-        <TextView
-            android:id="@+id/date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textStyle="italic"
-            android:text="@string/sample_date"/>
 
     </LinearLayout>
 

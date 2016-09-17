@@ -34,7 +34,6 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionViewHolder>{
     @Override
     public void onBindViewHolder(QuestionViewHolder holder, int position) {
         holder.mQuestion.setText(questions.get(position).getQuestion());
-        holder.mCreatedAt.setText(questions.get(position).getCreatedAt());
         holder.mMore.setOnClickListener(new OnItemClickListener(position, onItemClickCallback));
     }
 

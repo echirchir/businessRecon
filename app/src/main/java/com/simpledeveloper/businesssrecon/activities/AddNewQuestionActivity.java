@@ -3,6 +3,7 @@ package com.simpledeveloper.businesssrecon.activities;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
@@ -38,6 +39,7 @@ import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
+import io.realm.Sort;
 
 public class AddNewQuestionActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
@@ -176,7 +178,7 @@ public class AddNewQuestionActivity extends AppCompatActivity implements SearchV
                 question.setUpdatedAt(Utils.getCurrentDate());
 
                 mRealm.beginTransaction();
-                mRealm.copyFromRealm(question);
+                mRealm.copyToRealm(question);
                 mRealm.commitTransaction();
 
                 finish();
@@ -208,7 +210,7 @@ public class AddNewQuestionActivity extends AppCompatActivity implements SearchV
         switch (item.getItemId()) {
 
             case android.R.id.home:
-                finish();
+                startActivity(new Intent(this, BusinessReconActivity.class));
                 return true;
 
             case R.id.action_search:
@@ -224,7 +226,7 @@ public class AddNewQuestionActivity extends AppCompatActivity implements SearchV
         addQuestions = new ArrayList<>();
 
         RealmResults<com.simpledeveloper.businesssrecon.db.Question> questions = mRealm.where(com.simpledeveloper
-                .businesssrecon.db.Question.class).findAllSorted("id");
+                .businesssrecon.db.Question.class).findAllSorted("id", Sort.DESCENDING);
 
         if (!questions.isEmpty()){
             for (com.simpledeveloper.businesssrecon.db.Question question: questions) {
