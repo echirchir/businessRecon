@@ -16,12 +16,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.simpledeveloper.businesssrecon.R;
+import com.simpledeveloper.businesssrecon.db.Answer;
 import com.simpledeveloper.businesssrecon.db.Question;
+import com.simpledeveloper.businesssrecon.utils.Utils;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -35,6 +38,7 @@ public class SurveyActivity extends AppCompatActivity {
     private Realm mRealm;
 
     private static RealmResults<Question> questions;
+    private static EditText answerInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,10 +69,36 @@ public class SurveyActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                //for testing purporses, store answers when this is clicked;
+                saveAnswer("I make approximately $10000 daily and get paid mostly through credit cards meaning I have to " +
+                        "process the payments!");
             }
         });
 
+    }
+
+    private void saveAnswer(String answer){
+        RealmResults<Answer> allAnswers = mRealm.where(Answer.class).findAllSorted("id");
+
+        Answer newAnswer = new Answer();
+
+        long lastAnswerId;
+
+        if (allAnswers.isEmpty()){
+            newAnswer.setId(0);
+        }else{
+            lastAnswerId = allAnswers.last().getId();
+            newAnswer.setId(lastAnswerId + 1);
+        }
+
+        newAnswer.setAnswer(answer);
+        newAnswer.setQuestionId(questions.get(SurveyQuestionFragment.qPosition).getId());
+        newAnswer.setCreatedAt(Utils.getCurrentDate());
+        newAnswer.setUpdatedAt(Utils.getCurrentDate());
+
+        mRealm.beginTransaction();
+        mRealm.copyToRealm(newAnswer);
+        mRealm.commitTransaction();
     }
 
     @Override
@@ -97,6 +127,7 @@ public class SurveyActivity extends AppCompatActivity {
     public static class SurveyQuestionFragment extends Fragment {
 
         private static final String ARG_SECTION_NUMBER = "section_number";
+        private static int qPosition;
 
         public SurveyQuestionFragment() {
         }
@@ -118,7 +149,9 @@ public class SurveyActivity extends AppCompatActivity {
                     WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
             TextView textView = (TextView) rootView.findViewById(R.id.question);
-            int qPosition = getArguments().getInt(ARG_SECTION_NUMBER);
+            qPosition = getArguments().getInt(ARG_SECTION_NUMBER);
+
+            answerInput = (EditText) rootView.findViewById(R.id.answer);
 
             ImageView rounded = (ImageView) rootView.findViewById(R.id.question_number);
 
