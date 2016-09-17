@@ -69,7 +69,7 @@ public class AddNewQuestionActivity extends AppCompatActivity implements SearchV
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showInputDialog();
+                showInputDialog(false, -1);
             }
         });
 
@@ -106,7 +106,7 @@ public class AddNewQuestionActivity extends AppCompatActivity implements SearchV
         initQuestions();
     }
 
-    private void showInputDialog(){
+    private void showInputDialog(boolean isEditMode, int position){
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
 
         dialogBuilder.setTitle(getString(R.string.add_new_question));
@@ -118,7 +118,15 @@ public class AddNewQuestionActivity extends AppCompatActivity implements SearchV
         questionReference = (EditText) dialogView.findViewById(R.id.question);
         questionWrapper = (TextInputLayout) dialogView.findViewById(R.id.question_wrapper);
 
-        dialogBuilder.setPositiveButton(getString(R.string.add_button), new DialogInterface.OnClickListener() {
+        if (isEditMode){
+            com.simpledeveloper.businesssrecon.db.Question qEdit = mRealm.where(com.simpledeveloper.businesssrecon.db
+                    .Question.class)
+                    .equalTo("id", mAdapter.getItem(position).getId()).findFirst();
+            questionReference.setText(qEdit.getQuestion());
+        }
+
+        dialogBuilder.setPositiveButton(isEditMode ? getString(R.string.update_button): getString(R.string.add_button), new
+                DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
@@ -136,15 +144,19 @@ public class AddNewQuestionActivity extends AppCompatActivity implements SearchV
         alertDialog.show();
 
         Button saveQuestion = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
-        saveQuestion.setOnClickListener(new CustomClickListener(alertDialog));
+        saveQuestion.setOnClickListener(new CustomClickListener(alertDialog, isEditMode, position));
     }
 
     private class CustomClickListener implements View.OnClickListener {
 
         private final Dialog dialog;
+        private final boolean isEditMode;
+        private final int position;
 
-        CustomClickListener(Dialog dialog) {
+        CustomClickListener(Dialog dialog, boolean mode, int position) {
             this.dialog = dialog;
+            this.isEditMode = mode;
+            this.position = position;
         }
 
         @Override
@@ -158,28 +170,45 @@ public class AddNewQuestionActivity extends AppCompatActivity implements SearchV
 
                 dialog.dismiss();
 
-                long lastQuestionId;
+                if (isEditMode){
 
-                RealmResults<com.simpledeveloper.businesssrecon.db.Question> questions = mRealm.where(com.simpledeveloper
-                        .businesssrecon.db.Question.class)
-                        .findAllSorted("id");
+                    com.simpledeveloper.businesssrecon.db.Question edit = mRealm.where(com.simpledeveloper.businesssrecon
+                            .db.Question.class)
+                            .equalTo("id", mAdapter.getItem(position).getId())
+                            .findFirst();
+                    if (edit != null){
 
-                com.simpledeveloper.businesssrecon.db.Question question = new com.simpledeveloper.businesssrecon.db.Question();
 
-                if (questions.isEmpty()){
-                    question.setId(0);
+                        mRealm.beginTransaction();
+                        edit.setQuestion(questionValue);
+                        edit.setUpdatedAt(Utils.getCurrentDate());
+                        mRealm.copyToRealmOrUpdate(edit);
+                        mRealm.commitTransaction();
+                    }
                 }else{
-                    lastQuestionId = questions.last().getId();
-                    question.setId(lastQuestionId + 1);
+                    long lastQuestionId;
+
+                    RealmResults<com.simpledeveloper.businesssrecon.db.Question> questions = mRealm.where(com.simpledeveloper
+                            .businesssrecon.db.Question.class)
+                            .findAllSorted("id");
+
+                    com.simpledeveloper.businesssrecon.db.Question question = new com.simpledeveloper.businesssrecon.db.Question();
+
+                    if (questions.isEmpty()){
+                        question.setId(0);
+                    }else{
+                        lastQuestionId = questions.last().getId();
+                        question.setId(lastQuestionId + 1);
+                    }
+
+                    question.setQuestion(questionValue);
+                    question.setCreatedAt(Utils.getCurrentDate());
+                    question.setUpdatedAt(Utils.getCurrentDate());
+
+                    mRealm.beginTransaction();
+                    mRealm.copyToRealm(question);
+                    mRealm.commitTransaction();
                 }
-
-                question.setQuestion(questionValue);
-                question.setCreatedAt(Utils.getCurrentDate());
-                question.setUpdatedAt(Utils.getCurrentDate());
-
-                mRealm.beginTransaction();
-                mRealm.copyToRealm(question);
-                mRealm.commitTransaction();
 
                 finish();
                 startActivity(getIntent());
@@ -246,7 +275,7 @@ public class AddNewQuestionActivity extends AppCompatActivity implements SearchV
 
     private OnItemClickListener.OnItemClickCallback onItemClickCallback = new OnItemClickListener.OnItemClickCallback() {
         @Override
-        public void onItemClicked(View view, int position) {
+        public void onItemClicked(View view, final int position) {
             switch (view.getId()){
 
                 case R.id.more:
@@ -257,7 +286,7 @@ public class AddNewQuestionActivity extends AppCompatActivity implements SearchV
                             int id = item.getItemId();
 
                             if (id == R.id.action_edit){
-
+                                showInputDialog(true, position);
                                 return true;
                             }else if(id == R.id.action_delete){
 
