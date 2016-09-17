@@ -18,9 +18,9 @@
             android:id="@+id/question"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="start"
             android:textSize="22sp"
-            android:inputType="textCapSentences"
+            android:minLines="3"
+            android:inputType="textCapSentences|textMultiLine"
             android:layout_gravity="start"
             android:hint="@string/question_hint"/>
 

@@ -24,7 +24,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.simpledeveloper.businesssrecon.R;
 import com.simpledeveloper.businesssrecon.adapters.QuestionsAdapter;
@@ -124,6 +123,7 @@ public class AddNewQuestionActivity extends AppCompatActivity implements SearchV
                     .Question.class)
                     .equalTo("id", mAdapter.getItem(position).getId()).findFirst();
             questionReference.setText(qEdit.getQuestion());
+            questionReference.setSelection(questionReference.getText().length());
         }
 
         dialogBuilder.setPositiveButton(isEditMode ? getString(R.string.update_button): getString(R.string.add_button), new
@@ -180,7 +180,7 @@ public class AddNewQuestionActivity extends AppCompatActivity implements SearchV
                     if (edit != null){
 
                         mRealm.beginTransaction();
-                        edit.setQuestion(questionValue);
+                        edit.setQuestion(questionValue.trim());
                         edit.setUpdatedAt(Utils.getCurrentDate());
                         mRealm.copyToRealmOrUpdate(edit);
                         mRealm.commitTransaction();
@@ -201,7 +201,7 @@ public class AddNewQuestionActivity extends AppCompatActivity implements SearchV
                         question.setId(lastQuestionId + 1);
                     }
 
-                    question.setQuestion(questionValue);
+                    question.setQuestion(questionValue.trim());
                     question.setCreatedAt(Utils.getCurrentDate());
                     question.setUpdatedAt(Utils.getCurrentDate());
 
@@ -301,7 +301,6 @@ public class AddNewQuestionActivity extends AppCompatActivity implements SearchV
                     popup.setGravity(Gravity.END);
                     popup.show();
 
-                    Toast.makeText(AddNewQuestionActivity.this, "Clicked more icon", Toast.LENGTH_LONG).show();
                     break;
 
             }
