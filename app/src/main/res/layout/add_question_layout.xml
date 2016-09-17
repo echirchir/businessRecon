@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@color/core_background_dark"
+  android:padding="8dp">
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/question_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="vertical"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/rounded_edittext_background"
+        android:layout_marginBottom="8dp">
+
+        <EditText
+            android:id="@+id/question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:textSize="22sp"
+            android:inputType="textCapSentences"
+            android:layout_gravity="start"
+            android:hint="@string/question_hint"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+</LinearLayout>

@@ -1,8 +1,13 @@
 package com.simpledeveloper.businesssrecon.activities;
 
+import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
@@ -10,10 +15,13 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +31,7 @@ import com.simpledeveloper.businesssrecon.listeners.OnItemClickListener;
 import com.simpledeveloper.businesssrecon.listeners.RecyclerItemClickListener;
 import com.simpledeveloper.businesssrecon.ui.Question;
 import com.simpledeveloper.businesssrecon.utils.DividerItemDecorator;
+import com.simpledeveloper.businesssrecon.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,10 +47,15 @@ public class AddNewQuestionActivity extends AppCompatActivity implements SearchV
     private QuestionsAdapter mAdapter;
     private Realm mRealm;
     private TextView mNoQuestionsUi;
+    private EditText questionReference;
+    private TextInputLayout questionWrapper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+
         setContentView(R.layout.activity_add_new_question);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -72,7 +86,7 @@ public class AddNewQuestionActivity extends AppCompatActivity implements SearchV
                 .OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-
+                //display details view here for question/answer
             }
 
             @Override
@@ -91,7 +105,84 @@ public class AddNewQuestionActivity extends AppCompatActivity implements SearchV
     }
 
     private void showInputDialog(){
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
 
+        dialogBuilder.setTitle(getString(R.string.add_new_question));
+
+        LayoutInflater inflater = this.getLayoutInflater();
+        @SuppressLint("InflateParams") View dialogView = inflater.inflate(R.layout.add_question_layout, null);
+        dialogBuilder.setView(dialogView);
+
+        questionReference = (EditText) dialogView.findViewById(R.id.question);
+        questionWrapper = (TextInputLayout) dialogView.findViewById(R.id.question_wrapper);
+
+        dialogBuilder.setPositiveButton(getString(R.string.add_button), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        dialogBuilder.setNegativeButton(getString(android.R.string.cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alertDialog = dialogBuilder.create();
+        alertDialog.show();
+
+        Button saveQuestion = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+        saveQuestion.setOnClickListener(new CustomClickListener(alertDialog));
+    }
+
+    private class CustomClickListener implements View.OnClickListener {
+
+        private final Dialog dialog;
+
+        CustomClickListener(Dialog dialog) {
+            this.dialog = dialog;
+        }
+
+        @Override
+        public void onClick(View v) {
+            String questionValue = questionReference.getText().toString();
+
+            if (questionValue.equals("")) {
+                questionWrapper.setError(getString(R.string.question_cannot_be_empty));
+                questionWrapper.setErrorEnabled(true);
+            }else {
+
+                dialog.dismiss();
+
+                long lastQuestionId;
+
+                RealmResults<com.simpledeveloper.businesssrecon.db.Question> questions = mRealm.where(com.simpledeveloper
+                        .businesssrecon.db.Question.class)
+                        .findAllSorted("id");
+
+                com.simpledeveloper.businesssrecon.db.Question question = new com.simpledeveloper.businesssrecon.db.Question();
+
+                if (questions.isEmpty()){
+                    question.setId(0);
+                }else{
+                    lastQuestionId = questions.last().getId();
+                    question.setId(lastQuestionId + 1);
+                }
+
+                question.setQuestion(questionValue);
+                question.setCreatedAt(Utils.getCurrentDate());
+                question.setUpdatedAt(Utils.getCurrentDate());
+
+                mRealm.beginTransaction();
+                mRealm.copyFromRealm(question);
+                mRealm.commitTransaction();
+
+                finish();
+                startActivity(getIntent());
+            }
+        }
     }
 
     @Override

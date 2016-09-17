@@ -28,4 +28,8 @@
     <string name="sample_date">Oct 24, 2015</string>
     <string name="action_edit">EDIT</string>
     <string name="action_delete">DELETE</string>
+    <string name="question_hint">Survey question</string>
+    <string name="add_new_question">Add new survey question</string>
+    <string name="add_button">ADD</string>
+    <string name="question_cannot_be_empty">Question field cannot be empty!</string>
 </resources>
