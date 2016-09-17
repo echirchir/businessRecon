@@ -30,7 +30,7 @@ public class BusinessReconActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                // TODO: 9/17/16 complete the actual survey
             }
         });
 
@@ -57,6 +57,7 @@ public class BusinessReconActivity extends AppCompatActivity {
             startActivity(new Intent(this, AddNewQuestionActivity.class));
             return true;
         }else if(id == R.id.action_answers){
+            startActivity(new Intent(this, SurveyActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);

@@ -88,7 +88,7 @@ public class AddNewQuestionActivity extends AppCompatActivity implements SearchV
                 .OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                //display details view here for question/answer
+                // TODO: 9/17/16 probably disable clicks here
             }
 
             @Override

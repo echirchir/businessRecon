@@ -36,4 +36,6 @@
     <string name="confirm_delete_question">Sure want to delete this question?</string>
     <string name="delete_details">Deleting this question will delete any associated answers previously recorded!</string>
     <string name="delete_button">DELETE</string>
+    <string name="title_activity_survey">Take Survey</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>
