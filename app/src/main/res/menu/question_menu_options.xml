@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context=".activities.AddNewQuestionActivity">
+
+    <group android:id="@+id/grp1">
+        <item android:id="@+id/action_edit"
+              android:title="@string/action_edit"
+              android:orderInCategory="100"
+              app:showAsAction="ifRoom"/>
+    </group>
+
+    <group android:id="@+id/grp2">
+        <item android:id="@+id/action_delete"
+              android:title="@string/action_delete"
+              android:orderInCategory="100"
+              app:showAsAction="ifRoom"/>
+    </group>
+</menu>

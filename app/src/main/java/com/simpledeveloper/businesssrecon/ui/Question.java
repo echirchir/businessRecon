@@ -5,10 +5,12 @@ public class Question {
 
     private long id;
     private String question;
+    private String createdAt;
 
-    public Question(long id, String question) {
+    public Question(long id, String question, String createdAt) {
         this.id = id;
         this.question = question;
+        this.createdAt = createdAt;
     }
 
     public long getId() {
@@ -25,5 +27,13 @@ public class Question {
 
     public void setQuestion(String question) {
         this.question = question;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 }
