@@ -81,9 +81,7 @@ public class SurveyActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }else if(id == android.R.id.home){
+        if(id == android.R.id.home){
             startActivity(new Intent(this, BusinessReconActivity.class));
             return true;
         }
@@ -129,6 +127,7 @@ public class SurveyActivity extends AppCompatActivity {
                     if (answerInput.getText().toString().trim().equals("")){
                         wrapper.setError(getActivity().getString(R.string.empty_answer_field_warning));
                         wrapper.setErrorEnabled(true);
+                        Utils.showSnackBar(getActivity(), getView(), getActivity().getString(R.string.empty_answer_field_warning));
                     }else{
                         saveAnswer(answerInput.getText().toString().trim(), qPosition);
                     }

@@ -39,9 +39,15 @@ public class SurveyAnswersActivity extends AppCompatActivity implements SearchVi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        overridePendingTransition(R.anim.fade_out, R.anim.fade_in);
+
         setContentView(R.layout.activity_survey_answers);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //noinspection ConstantConditions
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
