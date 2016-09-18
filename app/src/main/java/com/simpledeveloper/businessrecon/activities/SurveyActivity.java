@@ -1,7 +1,11 @@
 package com.simpledeveloper.businessrecon.activities;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
+import android.speech.tts.TextToSpeech;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
@@ -13,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +30,12 @@ import com.amulyakhare.textdrawable.TextDrawable;
 import com.simpledeveloper.businessrecon.R;
 import com.simpledeveloper.businessrecon.db.Answer;
 import com.simpledeveloper.businessrecon.db.Question;
+import com.simpledeveloper.businessrecon.utils.InternetConnectionDetector;
 import com.simpledeveloper.businessrecon.utils.Utils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -67,14 +77,6 @@ public class SurveyActivity extends AppCompatActivity {
 
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_survey, menu);
-        return true;
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -89,9 +91,72 @@ public class SurveyActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public static class SurveyQuestionFragment extends Fragment {
+    public static class SurveyQuestionFragment extends Fragment implements TextToSpeech.OnInitListener {
 
         private static final String ARG_SECTION_NUMBER = "section_number";
+        private EditText answerInput;
+        private final int REQ_CODE_SPEECH_INPUT = 100;
+        private InternetConnectionDetector detector;
+        private TextToSpeech tts;
+
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setHasOptionsMenu(true);
+
+            detector = new InternetConnectionDetector(getActivity());
+
+            tts = new TextToSpeech(getActivity(), this);
+        }
+
+        @Override
+        public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+            menu.clear();
+            inflater.inflate(R.menu.menu_survey, menu);
+            super.onCreateOptionsMenu(menu, inflater);
+        }
+
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.action_mic:
+                    if (!isSpeechRecognitionSupported()) {
+                        Utils.showSnackBar(getActivity(), getView(), "Speech recognition is not supported!");
+                    } else {
+                        if (detector.isConnectedToInternet()){
+                            promptSpeechInput();
+                        }else{
+                            Utils.showSnackBar(getActivity(), getView(), "Speech recognition requires internet!");
+                        }
+                    }
+                    return true;
+                default:
+                    return super.onOptionsItemSelected(item);
+            }
+
+        }
+
+        private void promptSpeechInput() {
+            Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                    RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+            intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
+                    getString(R.string.record_survey));
+            try {
+                startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
+            } catch (ActivityNotFoundException a) {
+                a.getMessage();
+            }
+        }
+
+        private boolean isSpeechRecognitionSupported(){
+            PackageManager pm = getActivity().getPackageManager();
+            List activities = pm.queryIntentActivities(
+                    new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH), 0);
+
+            return activities.size() != 0;
+        }
 
         public SurveyQuestionFragment() {
         }
@@ -116,7 +181,7 @@ public class SurveyActivity extends AppCompatActivity {
 
             final int qPosition = getArguments().getInt(ARG_SECTION_NUMBER);
 
-            final EditText answerInput = (EditText) rootView.findViewById(R.id.answer);
+            answerInput = (EditText) rootView.findViewById(R.id.answer);
             final TextInputLayout wrapper = (TextInputLayout) rootView.findViewById(R.id.answer_wrapper);
 
             FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
@@ -183,6 +248,51 @@ public class SurveyActivity extends AppCompatActivity {
 
                 Utils.showSnackBar(getActivity(), getView(), "A survey answer successfully saved!");
             }
+        }
+
+        @Override
+        public void onInit(int status) {
+            if (status == TextToSpeech.SUCCESS) {
+
+                int result = tts.setLanguage(Locale.getDefault());
+
+                if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                    //text to speech not supported
+                }
+
+            } else {
+                //something went wrong
+            }
+        }
+
+        @Override
+        public void onActivityResult(int requestCode, int resultCode, Intent data) {
+            super.onActivityResult(requestCode, resultCode, data);
+
+            switch (requestCode) {
+                case REQ_CODE_SPEECH_INPUT: {
+                    if (resultCode == RESULT_OK && null != data) {
+
+                        ArrayList<String> result = data
+                                .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+
+                        char first = Character.toUpperCase(result.get(0).charAt(0));
+
+                        String raw = result.get(0);
+
+                        String  response = first + raw.substring(1, raw.length()) +".";
+
+                        updateInputField(response);
+
+                    }
+                    break;
+                }
+
+            }
+        }
+
+        private void updateInputField(String response){
+            answerInput.append(response);
         }
     }
 
