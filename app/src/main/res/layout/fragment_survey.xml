@@ -44,11 +44,11 @@
             android:background="@color/core_background"
             android:gravity="center_horizontal">
 
-            <TextView
+            <com.simpledeveloper.businessrecon.ui.ReconTextView
                 android:id="@+id/question"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:textSize="22sp"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_horizontal|center_vertical"
                 android:padding="8dp"

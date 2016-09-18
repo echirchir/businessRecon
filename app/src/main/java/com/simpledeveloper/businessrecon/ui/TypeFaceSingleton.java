@@ -14,7 +14,7 @@ public class TypeFaceSingleton {
 
     public Typeface getTypeface(Context context) {
         if(mTypeFace == null){
-            mTypeFace = Typeface.createFromAsset(context.getResources().getAssets(), "fonts/Langdon.otf");
+            mTypeFace = Typeface.createFromAsset(context.getResources().getAssets(), "EBGaramond-Regular.ttf");
         }
         return mTypeFace;
     }

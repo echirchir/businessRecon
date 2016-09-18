@@ -222,7 +222,7 @@ public class SurveyActivity extends AppCompatActivity {
                     .findAll();
 
             if (!preCheck.isEmpty()){
-                Utils.showSnackBar(getActivity(), getView(), .getString(R.string.answer_already_saved));
+                Utils.showSnackBar(getActivity(), getView(), getString(R.string.answer_already_saved));
             }else{
                 RealmResults<Answer> allAnswers = mRealm.where(Answer.class).findAllSorted("id");
 

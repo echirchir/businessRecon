@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:background="@color/core_background">
 
-        <TextView
+        <com.simpledeveloper.businessrecon.ui.ReconTextView
             android:id="@+id/question"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -22,7 +22,7 @@
             android:text="@string/sample_question"
             android:textColor="@color/colorAccent"
             android:textStyle="bold"
-            android:textSize="17sp" />
+            android:textSize="22sp" />
 
         <TextView
             android:id="@+id/answer"

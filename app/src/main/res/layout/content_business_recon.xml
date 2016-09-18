@@ -36,10 +36,10 @@
                     android:layout_height="wrap_content"
                     android:maxLines="3"
                     android:padding="8dp"
+                    android:textStyle="bold"
                     android:text="@string/title"
                     android:textColor="@color/colorAccent"
-                    android:textStyle="bold"
-                    android:textSize="17sp" />
+                    android:textSize="22sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -77,7 +77,7 @@
                     android:text="@string/stats"
                     android:textColor="@color/colorAccent"
                     android:textStyle="bold"
-                    android:textSize="17sp" />
+                    android:textSize="22sp" />
 
                 <ImageView
                     android:id="@+id/questions_value"
@@ -128,7 +128,7 @@
                     android:text="@string/goal"
                     android:textColor="@color/colorAccent"
                     android:textStyle="bold"
-                    android:textSize="17sp" />
+                    android:textSize="22sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
