@@ -209,7 +209,7 @@ public class SurveyActivity extends AppCompatActivity {
             if (qPosition < questions.size()){
                 textView.setText(questions.get(qPosition).getQuestion());
             }else{
-                // TODO: 9/18/16 transition to next activity
+                startActivity(new Intent(getActivity(), SurveyAnswersActivity.class));
             }
 
             return rootView;
