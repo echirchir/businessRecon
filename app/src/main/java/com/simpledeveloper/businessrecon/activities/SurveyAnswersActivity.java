@@ -40,7 +40,7 @@ public class SurveyAnswersActivity extends AppCompatActivity implements SearchVi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        overridePendingTransition(R.anim.fade_out, R.anim.fade_in);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 
         setContentView(R.layout.activity_survey_answers);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
