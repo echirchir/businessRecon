@@ -14,14 +14,14 @@
        \n\nTalk to real customers today and start your next business!
 
     </string>
-    <string name="title_activity_add_new_question">Survey Questions</string>
+    <string name="title_activity_add_new_question">Survey questions</string>
     <string name="sample_question">Why did you start your business?</string>
     <string name="sample_answer">I started this business because I won a lottery and didn\'t know what to do with my millions! You see, am pretty smart bro!</string>
     <string name="date_added">09/19/206</string>
-    <string name="action_add">Add Questions</string>
+    <string name="action_add">Survey Questions</string>
     <string name="search">Search</string>
     <string name="search_questions">Search questions …</string>
-    <string name="action_answers">View Answers</string>
+    <string name="action_answers">Survey Answers</string>
     <string name="no_survey_questions">You have no survey questions added. Add them using the button below!</string>
     <string name="sample_date">Oct 24, 2015</string>
     <string name="action_edit">EDIT</string>
@@ -31,19 +31,19 @@
     <string name="add_button">ADD</string>
     <string name="question_cannot_be_empty">Question field cannot be empty!</string>
     <string name="update_button">UPDATE</string>
-    <string name="confirm_delete_question">Sure want to delete this question?</string>
+    <string name="confirm_delete_question">Delete this question?</string>
     <string name="delete_details">Deleting this question will delete any associated answers previously recorded!</string>
     <string name="delete_button">DELETE</string>
     <string name="title_activity_survey">Take Survey</string>
     <string name="answer_hint">Answer</string>
-    <string name="title_activity_survey_answers">Survey Answers</string>
+    <string name="title_activity_survey_answers">Survey answers</string>
     <string name="no_survey_answers">You have not completed any surveys at the moment. Use the button below to start!</string>
     <string name="search_answers">Search answers …</string>
     <string name="action_mic">Record</string>
     <string name="empty_answer_field_warning">Answer field cannot be empty!</string>
     <string name="ok">OK</string>
     <string name="record_survey">Speak to record</string>
-    <string name="survey_answer_field">A survey answer successfully saved!</string>
+    <string name="survey_answer_field">Answer successfully saved!</string>
     <string name="answer_already_saved">This answer has already been saved!</string>
     <string name="actions">Actions</string>
     <string name="confirm_delete_answer">Delete this answer?</string>
