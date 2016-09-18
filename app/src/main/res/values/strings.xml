@@ -42,4 +42,5 @@
     <string name="title_activity_survey_answers">Survey Answers</string>
     <string name="no_survey_answers">You have not completed any surveys at the moment. Use the button below to start!</string>
     <string name="search_answers">Search answers ...</string>
+    <string name="action_mic">Record</string>
 </resources>

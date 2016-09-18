@@ -35,9 +35,10 @@ public class SurveyActivity extends AppCompatActivity {
 
     private ViewPager mViewPager;
 
-    private Realm mRealm;
+    private static Realm mRealm;
 
     private static RealmResults<Question> questions;
+
     private static EditText answerInput;
 
     @Override
@@ -65,19 +66,9 @@ public class SurveyActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //for testing purporses, store answers when this is clicked;
-                saveAnswer("I make approximately $10000 daily and get paid mostly through credit cards meaning I have to " +
-                        "process the payments!");
-            }
-        });
-
     }
 
-    private void saveAnswer(String answer){
+    private static void saveAnswer(String answer){
         RealmResults<Answer> allAnswers = mRealm.where(Answer.class).findAllSorted("id");
 
         Answer newAnswer = new Answer();
@@ -149,9 +140,19 @@ public class SurveyActivity extends AppCompatActivity {
                     WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
             TextView textView = (TextView) rootView.findViewById(R.id.question);
+
             qPosition = getArguments().getInt(ARG_SECTION_NUMBER);
 
             answerInput = (EditText) rootView.findViewById(R.id.answer);
+
+            FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    saveAnswer("I make approximately $10000 daily and get paid mostly through credit cards meaning I have to " +
+                            "process the payments!");
+                }
+            });
 
             ImageView rounded = (ImageView) rootView.findViewById(R.id.question_number);
 
