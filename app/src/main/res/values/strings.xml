@@ -50,4 +50,5 @@
     <string name="actions">Actions</string>
     <string name="confirm_delete_answer">Delete this answer?</string>
     <string name="delete_answer_desc">Deleting this answer will permanently remove it from your device!</string>
+    <string name="no_questions_added">You have not added survey questions!</string>
 </resources>

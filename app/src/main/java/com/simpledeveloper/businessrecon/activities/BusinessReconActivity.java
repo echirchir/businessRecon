@@ -3,6 +3,7 @@ package com.simpledeveloper.businessrecon.activities;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -15,12 +16,14 @@ import com.amulyakhare.textdrawable.TextDrawable;
 import com.simpledeveloper.businessrecon.R;
 import com.simpledeveloper.businessrecon.db.Answer;
 import com.simpledeveloper.businessrecon.db.Question;
+import com.simpledeveloper.businessrecon.utils.Utils;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
 
 public class BusinessReconActivity extends AppCompatActivity {
 
+    private CoordinatorLayout mCoordinatorLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,18 +34,25 @@ public class BusinessReconActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(BusinessReconActivity.this, SurveyActivity.class));
-            }
-        });
+        mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
 
         Realm realm = Realm.getDefaultInstance();
 
         RealmResults<Answer> answers = realm.where(Answer.class).findAllSorted("id");
-        RealmResults<Question> questions = realm.where(Question.class).findAllSorted("id");
+        final RealmResults<Question> questions = realm.where(Question.class).findAllSorted("id");
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(questions.isEmpty()){
+                    Utils.showSnackBar(BusinessReconActivity.this, mCoordinatorLayout, getString(R.string.no_questions_added));
+                }else{
+                    startActivity(new Intent(BusinessReconActivity.this, SurveyActivity.class));
+                }
+            }
+        });
 
         ImageView surveysRounded = (ImageView) findViewById(R.id.stats_value);
         ImageView questionsRounded = (ImageView) findViewById(R.id.questions_value);
