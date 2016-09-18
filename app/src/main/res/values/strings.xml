@@ -46,4 +46,6 @@
     <string name="empty_answer_field_warning">Answer field cannot be empty!</string>
     <string name="ok">OK</string>
     <string name="record_survey">Speak to record</string>
+    <string name="survey_answer_field">A survey answer successfully saved!</string>
+    <string name="answer_already_saved">This answer has already been saved!</string>
 </resources>
