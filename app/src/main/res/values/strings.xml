@@ -43,4 +43,6 @@
     <string name="no_survey_answers">You have not completed any surveys at the moment. Use the button below to start!</string>
     <string name="search_answers">Search answers ...</string>
     <string name="action_mic">Record</string>
+    <string name="empty_answer_field_warning">Answer field cannot be empty!</string>
+    <string name="ok">OK</string>
 </resources>

@@ -3,6 +3,7 @@ package com.simpledeveloper.businessrecon.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -39,8 +40,6 @@ public class SurveyActivity extends AppCompatActivity {
 
     private static RealmResults<Question> questions;
 
-    private static EditText answerInput;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,29 +67,6 @@ public class SurveyActivity extends AppCompatActivity {
 
     }
 
-    private static void saveAnswer(String answer){
-        RealmResults<Answer> allAnswers = mRealm.where(Answer.class).findAllSorted("id");
-
-        Answer newAnswer = new Answer();
-
-        long lastAnswerId;
-
-        if (allAnswers.isEmpty()){
-            newAnswer.setId(0);
-        }else{
-            lastAnswerId = allAnswers.last().getId();
-            newAnswer.setId(lastAnswerId + 1);
-        }
-
-        newAnswer.setAnswer(answer);
-        newAnswer.setQuestionId(questions.get(SurveyQuestionFragment.qPosition).getId());
-        newAnswer.setCreatedAt(Utils.getCurrentDate());
-        newAnswer.setUpdatedAt(Utils.getCurrentDate());
-
-        mRealm.beginTransaction();
-        mRealm.copyToRealm(newAnswer);
-        mRealm.commitTransaction();
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -118,7 +94,6 @@ public class SurveyActivity extends AppCompatActivity {
     public static class SurveyQuestionFragment extends Fragment {
 
         private static final String ARG_SECTION_NUMBER = "section_number";
-        private static int qPosition;
 
         public SurveyQuestionFragment() {
         }
@@ -141,16 +116,22 @@ public class SurveyActivity extends AppCompatActivity {
 
             TextView textView = (TextView) rootView.findViewById(R.id.question);
 
-            qPosition = getArguments().getInt(ARG_SECTION_NUMBER);
+            final int qPosition = getArguments().getInt(ARG_SECTION_NUMBER);
 
-            answerInput = (EditText) rootView.findViewById(R.id.answer);
+            final EditText answerInput = (EditText) rootView.findViewById(R.id.answer);
+            final TextInputLayout wrapper = (TextInputLayout) rootView.findViewById(R.id.answer_wrapper);
 
             FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
+
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    saveAnswer("I make approximately $10000 daily and get paid mostly through credit cards meaning I have to " +
-                            "process the payments!");
+                    if (answerInput.getText().toString().trim().equals("")){
+                        wrapper.setError(getActivity().getString(R.string.empty_answer_field_warning));
+                        wrapper.setErrorEnabled(true);
+                    }else{
+                        saveAnswer(answerInput.getText().toString().trim(), qPosition);
+                    }
                 }
             });
 
@@ -163,9 +144,46 @@ public class SurveyActivity extends AppCompatActivity {
 
             if (qPosition < questions.size()){
                 textView.setText(questions.get(qPosition).getQuestion());
+            }else{
+                // TODO: 9/18/16 transition to next activity
             }
 
             return rootView;
+        }
+
+        private void saveAnswer(String answer, int position){
+
+            RealmResults<Answer> preCheck = mRealm.where(Answer.class)
+                    .equalTo("answer", answer)
+                    .findAll();
+
+            if (!preCheck.isEmpty()){
+                Utils.showSnackBar(getActivity(), getView(), "This answer has already been saved!");
+            }else{
+                RealmResults<Answer> allAnswers = mRealm.where(Answer.class).findAllSorted("id");
+
+                Answer newAnswer = new Answer();
+
+                long lastAnswerId;
+
+                if (allAnswers.isEmpty()){
+                    newAnswer.setId(0);
+                }else{
+                    lastAnswerId = allAnswers.last().getId();
+                    newAnswer.setId(lastAnswerId + 1);
+                }
+
+                newAnswer.setAnswer(answer);
+                newAnswer.setQuestionId(questions.get(position).getId());
+                newAnswer.setCreatedAt(Utils.getCurrentDate());
+                newAnswer.setUpdatedAt(Utils.getCurrentDate());
+
+                mRealm.beginTransaction();
+                mRealm.copyToRealmOrUpdate(newAnswer);
+                mRealm.commitTransaction();
+
+                Utils.showSnackBar(getActivity(), getView(), "A survey answer successfully saved!");
+            }
         }
     }
 
