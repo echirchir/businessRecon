@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Business Recon</string>
-    <string name="action_settings">Settings</string>
     <string name="title">What is Business Recon?</string>
     <string name="description">Create study questions, complete surveys
         and gain insight into potential business opportunities!
@@ -36,7 +35,6 @@
     <string name="delete_details">Deleting this question will delete any associated answers previously recorded!</string>
     <string name="delete_button">DELETE</string>
     <string name="title_activity_survey">Take Survey</string>
-    <string name="section_format">Hello World from section: %1$d</string>
     <string name="answer_hint">Answer</string>
     <string name="title_activity_survey_answers">Survey Answers</string>
     <string name="no_survey_answers">You have not completed any surveys at the moment. Use the button below to start!</string>
@@ -51,4 +49,7 @@
     <string name="confirm_delete_answer">Delete this answer?</string>
     <string name="delete_answer_desc">Deleting this answer will permanently remove it from your device!</string>
     <string name="no_questions_added">You have not added survey questions!</string>
+    <string name="no_questions">You have no survey questions</string>
+    <string name="no_questions_details">Would you like to add new survey questions now?</string>
+    <string name="yes">YES</string>
 </resources>

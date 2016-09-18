@@ -1,10 +1,12 @@
 package com.simpledeveloper.businessrecon.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -16,7 +18,6 @@ import com.amulyakhare.textdrawable.TextDrawable;
 import com.simpledeveloper.businessrecon.R;
 import com.simpledeveloper.businessrecon.db.Answer;
 import com.simpledeveloper.businessrecon.db.Question;
-import com.simpledeveloper.businessrecon.utils.Utils;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -47,7 +48,7 @@ public class BusinessReconActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 if(questions.isEmpty()){
-                    Utils.showSnackBar(BusinessReconActivity.this, mCoordinatorLayout, getString(R.string.no_questions_added));
+                    resolveEmptyQuestions();
                 }else{
                     startActivity(new Intent(BusinessReconActivity.this, SurveyActivity.class));
                 }
@@ -65,6 +66,25 @@ public class BusinessReconActivity extends AppCompatActivity {
         TextDrawable drawable2 = TextDrawable.builder().buildRound((!questions.isEmpty() ? ""+questions.size() : "0"), Color
                 .LTGRAY);
         questionsRounded.setImageDrawable(drawable2);
+    }
+
+    void resolveEmptyQuestions(){
+        new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.no_questions))
+                .setMessage(getString(R.string.no_questions_details))
+                .setCancelable(false)
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(BusinessReconActivity.this, AddNewQuestionActivity.class));
+
+                    }
+                }).setNegativeButton(getString(android.R.string.no), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        }).show();
     }
 
     @Override
