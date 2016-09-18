@@ -48,7 +48,7 @@
                     android:padding="8dp"
                     android:text="@string/description"
                     android:textColor="@color/white"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
                     android:layout_alignParentBottom="true"/>
 
             </RelativeLayout>
@@ -137,7 +137,7 @@
                     android:padding="8dp"
                     android:text="@string/goal_desc"
                     android:textColor="@color/white"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
                     android:layout_alignParentBottom="true"/>
 
             </RelativeLayout>

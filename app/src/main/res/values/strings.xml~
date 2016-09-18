@@ -12,8 +12,9 @@
     <string name="goal">The Goal</string>
     <string name="goal_desc">Starting the right business takes both skill and motivation!
 
-       \n\nTalk to real customers today and start your next business!
-
+       By asking the right questions, you get an opportunity to pinpoint the market gap and eventually craft the best
+        business model that will reward you! \nIdentifying a business opportunity is hard but it does not have to be that
+        way! Get to the streets, talk to actual customers and start your next business!
     </string>
     <string name="title_activity_add_new_question">Survey Questions</string>
     <string name="sample_question">Why did you start your business?</string>
@@ -40,14 +41,11 @@
     <string name="answer_hint">Answer</string>
     <string name="title_activity_survey_answers">Survey Answers</string>
     <string name="no_survey_answers">You have not completed any surveys at the moment. Use the button below to start!</string>
-    <string name="search_answers">Search answers …</string>
+    <string name="search_answers">Search answers ...</string>
     <string name="action_mic">Record</string>
     <string name="empty_answer_field_warning">Answer field cannot be empty!</string>
     <string name="ok">OK</string>
     <string name="record_survey">Speak to record</string>
     <string name="survey_answer_field">A survey answer successfully saved!</string>
     <string name="answer_already_saved">This answer has already been saved!</string>
-    <string name="actions">Actions</string>
-    <string name="confirm_delete_answer">Delete this answer?</string>
-    <string name="delete_answer_desc">Deleting this answer will permanently remove it from your device!</string>
 </resources>

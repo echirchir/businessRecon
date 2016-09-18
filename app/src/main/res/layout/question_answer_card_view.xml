@@ -10,8 +10,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/core_background">
+        android:layout_height="wrap_content">
 
         <com.simpledeveloper.businessrecon.ui.ReconTextView
             android:id="@+id/question"

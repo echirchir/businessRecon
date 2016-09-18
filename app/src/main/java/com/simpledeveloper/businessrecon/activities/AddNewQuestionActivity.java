@@ -342,6 +342,11 @@ public class AddNewQuestionActivity extends AppCompatActivity implements SearchV
                         mAdapter.notifyDataSetChanged();
 
                         dialog.dismiss();
+
+                        if (mAdapter.getItemCount() == 0){
+                            finish();
+                            startActivity(getIntent());
+                        }
                     }
                 }).setNegativeButton(getString(android.R.string.cancel), new DialogInterface.OnClickListener() {
             @Override

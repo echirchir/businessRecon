@@ -1,12 +1,10 @@
 package com.simpledeveloper.businessrecon.activities;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.CardView;
@@ -18,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.simpledeveloper.businessrecon.R;
@@ -94,8 +93,7 @@ public class SurveyAnswersActivity extends AppCompatActivity implements SearchVi
 
                 selectedView = (CardView) view;
 
-                selectedView.setCardBackgroundColor(ContextCompat.getColor(SurveyAnswersActivity.this, R.color
-                        .core_background_dark));
+                selectedView.setBackgroundColor(ContextCompat.getColor(SurveyAnswersActivity.this, R.color.colorAccent));
                 currentActionMode = startSupportActionMode(modeCallBack);
                 view.setSelected(true);
             }
@@ -107,7 +105,7 @@ public class SurveyAnswersActivity extends AppCompatActivity implements SearchVi
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
             mode.setTitle(getResources().getString(R.string.actions));
-            mode.getMenuInflater().inflate(R.menu.actions_menu, menu);
+            mode.getMenuInflater().inflate(R.menu.action_menu, menu);
             return true;
         }
 
@@ -125,7 +123,7 @@ public class SurveyAnswersActivity extends AppCompatActivity implements SearchVi
                     mode.finish();
                     return true;
                 case R.id.action_delete:
-                    confirmDeleteAction(selectedItemPosition);
+                    delete(selectedItemPosition);
                     mode.finish();
                     return true;
                 default:
@@ -138,8 +136,7 @@ public class SurveyAnswersActivity extends AppCompatActivity implements SearchVi
             currentActionMode = null;
 
             if (selectedView != null){
-                selectedView.setCardBackgroundColor(ContextCompat.getColor(SurveyAnswersActivity.this, R.color
-                        .core_background));
+                selectedView.setBackgroundColor(ContextCompat.getColor(SurveyAnswersActivity.this, R.color.core_background_dark));
             }
         }
     };
@@ -148,40 +145,8 @@ public class SurveyAnswersActivity extends AppCompatActivity implements SearchVi
 
     }
 
-    void confirmDeleteAction(final int position){
-        new AlertDialog.Builder(this)
-                .setTitle(getString(R.string.confirm_delete_answer))
-                .setMessage(getString(R.string.delete_answer_desc))
-                .setCancelable(false)
-                .setPositiveButton(R.string.delete_button, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+    void delete(int position){
 
-                        RealmResults<com.simpledeveloper.businessrecon.db.Answer> answersToDelete = mRealm.where(com
-                                .simpledeveloper.businessrecon.db.Answer
-                                .class)
-                                .equalTo("id", mAdapter.getItem(position).getId())
-                                .findAllSorted("id");
-
-                        mRealm.beginTransaction();
-                        answersToDelete.deleteAllFromRealm();
-                        mRealm.commitTransaction();
-                        mAdapter.remove(position);
-                        mAdapter.notifyDataSetChanged();
-
-                        dialog.dismiss();
-
-                        if (mAdapter.getItemCount() == 0){
-                            finish();
-                            startActivity(getIntent());
-                        }
-                    }
-                }).setNegativeButton(getString(android.R.string.cancel), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        }).show();
     }
 
     @Override
