@@ -1,4 +1,4 @@
-package com.simpledeveloper.businesssrecon.activities;
+package com.simpledeveloper.businessrecon.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,10 +21,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
-import com.simpledeveloper.businesssrecon.R;
-import com.simpledeveloper.businesssrecon.db.Answer;
-import com.simpledeveloper.businesssrecon.db.Question;
-import com.simpledeveloper.businesssrecon.utils.Utils;
+import com.simpledeveloper.businessrecon.R;
+import com.simpledeveloper.businessrecon.db.Answer;
+import com.simpledeveloper.businessrecon.db.Question;
+import com.simpledeveloper.businessrecon.utils.Utils;
 
 import io.realm.Realm;
 import io.realm.RealmResults;

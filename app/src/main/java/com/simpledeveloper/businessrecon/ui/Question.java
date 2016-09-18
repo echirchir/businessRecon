@@ -1,18 +1,17 @@
-package com.simpledeveloper.businesssrecon.db;
+package com.simpledeveloper.businessrecon.ui;
 
-import io.realm.RealmObject;
-import io.realm.annotations.Index;
-import io.realm.annotations.PrimaryKey;
 
-public class Question extends RealmObject {
+public class Question {
 
-    @Index
-    @PrimaryKey
     private long id;
-
     private String question;
     private String createdAt;
-    private String updatedAt;
+
+    public Question(long id, String question, String createdAt) {
+        this.id = id;
+        this.question = question;
+        this.createdAt = createdAt;
+    }
 
     public long getId() {
         return id;
@@ -36,13 +35,5 @@ public class Question extends RealmObject {
 
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
-    }
-
-    public String getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
     }
 }

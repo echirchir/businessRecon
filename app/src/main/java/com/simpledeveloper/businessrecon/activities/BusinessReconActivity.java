@@ -1,4 +1,4 @@
-package com.simpledeveloper.businesssrecon.activities;
+package com.simpledeveloper.businessrecon.activities;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -12,9 +12,9 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
-import com.simpledeveloper.businesssrecon.R;
-import com.simpledeveloper.businesssrecon.db.Answer;
-import com.simpledeveloper.businesssrecon.db.Question;
+import com.simpledeveloper.businessrecon.R;
+import com.simpledeveloper.businessrecon.db.Answer;
+import com.simpledeveloper.businessrecon.db.Question;
 
 import io.realm.Realm;
 import io.realm.RealmResults;

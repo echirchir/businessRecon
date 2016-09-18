@@ -1,4 +1,4 @@
-package com.simpledeveloper.businesssrecon.adapters;
+package com.simpledeveloper.businessrecon.adapters;
 
 
 import android.support.v7.widget.RecyclerView;
@@ -6,9 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.simpledeveloper.businesssrecon.R;
-import com.simpledeveloper.businesssrecon.db.Question;
-import com.simpledeveloper.businesssrecon.ui.Answer;
+import com.simpledeveloper.businessrecon.R;
+import com.simpledeveloper.businessrecon.db.Question;
+import com.simpledeveloper.businessrecon.ui.Answer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,37 +54,37 @@ public class AnswersAdapter extends RecyclerView.Adapter<AnswerViewHolder>{
         super.onAttachedToRecyclerView(recyclerView);
     }
 
-    public void setModels(List<com.simpledeveloper.businesssrecon.ui.Answer> answersList){
+    public void setModels(List<com.simpledeveloper.businessrecon.ui.Answer> answersList){
         answers = new ArrayList<>(answersList);
     }
 
-    public void animateTo(List<com.simpledeveloper.businesssrecon.ui.Answer> models) {
+    public void animateTo(List<com.simpledeveloper.businessrecon.ui.Answer> models) {
         applyAndAnimateRemovals(models);
         applyAndAnimateAdditions(models);
         applyAndAnimateMovedItems(models);
     }
 
-    private void applyAndAnimateRemovals(List<com.simpledeveloper.businesssrecon.ui.Answer> newModels) {
+    private void applyAndAnimateRemovals(List<com.simpledeveloper.businessrecon.ui.Answer> newModels) {
         for (int i = answers.size() - 1; i >= 0; i--) {
-            final com.simpledeveloper.businesssrecon.ui.Answer model = answers.get(i);
+            final com.simpledeveloper.businessrecon.ui.Answer model = answers.get(i);
             if (!newModels.contains(model)) {
                 removeItem(i);
             }
         }
     }
 
-    private void applyAndAnimateAdditions(List<com.simpledeveloper.businesssrecon.ui.Answer> newModels) {
+    private void applyAndAnimateAdditions(List<com.simpledeveloper.businessrecon.ui.Answer> newModels) {
         for (int i = 0, count = newModels.size(); i < count; i++) {
-            final com.simpledeveloper.businesssrecon.ui.Answer model = newModels.get(i);
+            final com.simpledeveloper.businessrecon.ui.Answer model = newModels.get(i);
             if (!answers.contains(model)) {
                 addItem(i, model);
             }
         }
     }
 
-    private void applyAndAnimateMovedItems(List<com.simpledeveloper.businesssrecon.ui.Answer> newModels) {
+    private void applyAndAnimateMovedItems(List<com.simpledeveloper.businessrecon.ui.Answer> newModels) {
         for (int toPosition = newModels.size() - 1; toPosition >= 0; toPosition--) {
-            final com.simpledeveloper.businesssrecon.ui.Answer model = newModels.get(toPosition);
+            final com.simpledeveloper.businessrecon.ui.Answer model = newModels.get(toPosition);
             final int fromPosition = answers.indexOf(model);
             if (fromPosition >= 0 && fromPosition != toPosition) {
                 moveItem(fromPosition, toPosition);
@@ -92,24 +92,24 @@ public class AnswersAdapter extends RecyclerView.Adapter<AnswerViewHolder>{
         }
     }
 
-    private com.simpledeveloper.businesssrecon.ui.Answer removeItem(int position) {
-        final com.simpledeveloper.businesssrecon.ui.Answer model = answers.remove(position);
+    private com.simpledeveloper.businessrecon.ui.Answer removeItem(int position) {
+        final com.simpledeveloper.businessrecon.ui.Answer model = answers.remove(position);
         notifyItemRemoved(position);
         return model;
     }
 
-    private void addItem(int position, com.simpledeveloper.businesssrecon.ui.Answer model) {
+    private void addItem(int position, com.simpledeveloper.businessrecon.ui.Answer model) {
         answers.add(position, model);
         notifyItemInserted(position);
     }
 
     private void moveItem(int fromPosition, int toPosition) {
-        final com.simpledeveloper.businesssrecon.ui.Answer model = answers.remove(fromPosition);
+        final com.simpledeveloper.businessrecon.ui.Answer model = answers.remove(fromPosition);
         answers.add(toPosition, model);
         notifyItemMoved(fromPosition, toPosition);
     }
 
-    public com.simpledeveloper.businesssrecon.ui.Answer getItem(int position){
+    public com.simpledeveloper.businessrecon.ui.Answer getItem(int position){
         return answers.get(position);
     }
 }

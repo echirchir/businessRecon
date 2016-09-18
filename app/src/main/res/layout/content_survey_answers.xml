@@ -9,7 +9,7 @@
     android:padding="8dp"
     android:background="@color/core_background_dark"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.simpledeveloper.businesssrecon.activities.SurveyAnswersActivity"
+    tools:context="com.simpledeveloper.businessrecon.activities.SurveyAnswersActivity"
     tools:showIn="@layout/activity_survey_answers">
 
     <TextView

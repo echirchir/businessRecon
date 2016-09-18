@@ -1,4 +1,4 @@
-package com.simpledeveloper.businesssrecon;
+package com.simpledeveloper.businessrecon;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.simpledeveloper.businesssrecon", appContext.getPackageName());
+        assertEquals("com.simpledeveloper.businessrecon", appContext.getPackageName());
     }
 }

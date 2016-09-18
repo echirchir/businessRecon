@@ -1,4 +1,4 @@
-package com.simpledeveloper.businesssrecon.adapters;
+package com.simpledeveloper.businessrecon.adapters;
 
 
 import android.support.v7.widget.RecyclerView;
@@ -6,9 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.simpledeveloper.businesssrecon.R;
-import com.simpledeveloper.businesssrecon.listeners.OnItemClickListener;
-import com.simpledeveloper.businesssrecon.ui.Question;
+import com.simpledeveloper.businessrecon.R;
+import com.simpledeveloper.businessrecon.listeners.OnItemClickListener;
+import com.simpledeveloper.businessrecon.ui.Question;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.simpledeveloper.businesssrecon;
+package com.simpledeveloper.businessrecon;
 
 import android.app.Application;
 

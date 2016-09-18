@@ -1,4 +1,4 @@
-package com.simpledeveloper.businesssrecon.activities;
+package com.simpledeveloper.businessrecon.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,11 +15,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.simpledeveloper.businesssrecon.R;
-import com.simpledeveloper.businesssrecon.adapters.AnswersAdapter;
-import com.simpledeveloper.businesssrecon.listeners.RecyclerItemClickListener;
-import com.simpledeveloper.businesssrecon.ui.Answer;
-import com.simpledeveloper.businesssrecon.utils.DividerItemDecorator;
+import com.simpledeveloper.businessrecon.R;
+import com.simpledeveloper.businessrecon.adapters.AnswersAdapter;
+import com.simpledeveloper.businessrecon.listeners.RecyclerItemClickListener;
+import com.simpledeveloper.businessrecon.ui.Answer;
+import com.simpledeveloper.businessrecon.utils.DividerItemDecorator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -120,11 +120,11 @@ public class SurveyAnswersActivity extends AppCompatActivity implements SearchVi
     private void initAnswers(){
         addedAnswers = new ArrayList<>();
 
-        RealmResults<com.simpledeveloper.businesssrecon.db.Answer> answers = mRealm.where(com.simpledeveloper
-                .businesssrecon.db.Answer.class).findAllSorted("id", Sort.DESCENDING);
+        RealmResults<com.simpledeveloper.businessrecon.db.Answer> answers = mRealm.where(com.simpledeveloper
+                .businessrecon.db.Answer.class).findAllSorted("id", Sort.DESCENDING);
 
         if (!answers.isEmpty()){
-            for (com.simpledeveloper.businesssrecon.db.Answer answer: answers) {
+            for (com.simpledeveloper.businessrecon.db.Answer answer: answers) {
                 addedAnswers.add(new Answer(answer.getId(), answer.getQuestionId(), answer.getAnswer()));
             }
         }

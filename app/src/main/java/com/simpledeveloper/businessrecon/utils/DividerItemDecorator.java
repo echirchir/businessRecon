@@ -1,4 +1,4 @@
-package com.simpledeveloper.businesssrecon.utils;
+package com.simpledeveloper.businessrecon.utils;
 
 import android.content.Context;
 import android.content.res.TypedArray;

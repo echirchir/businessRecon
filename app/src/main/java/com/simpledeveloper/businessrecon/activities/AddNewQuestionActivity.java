@@ -1,4 +1,4 @@
-package com.simpledeveloper.businesssrecon.activities;
+package com.simpledeveloper.businessrecon.activities;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -25,14 +25,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.simpledeveloper.businesssrecon.R;
-import com.simpledeveloper.businesssrecon.adapters.QuestionsAdapter;
-import com.simpledeveloper.businesssrecon.db.Answer;
-import com.simpledeveloper.businesssrecon.listeners.OnItemClickListener;
-import com.simpledeveloper.businesssrecon.listeners.RecyclerItemClickListener;
-import com.simpledeveloper.businesssrecon.ui.Question;
-import com.simpledeveloper.businesssrecon.utils.DividerItemDecorator;
-import com.simpledeveloper.businesssrecon.utils.Utils;
+import com.simpledeveloper.businessrecon.R;
+import com.simpledeveloper.businessrecon.adapters.QuestionsAdapter;
+import com.simpledeveloper.businessrecon.db.Answer;
+import com.simpledeveloper.businessrecon.listeners.OnItemClickListener;
+import com.simpledeveloper.businessrecon.listeners.RecyclerItemClickListener;
+import com.simpledeveloper.businessrecon.ui.Question;
+import com.simpledeveloper.businessrecon.utils.DividerItemDecorator;
+import com.simpledeveloper.businessrecon.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -119,7 +119,7 @@ public class AddNewQuestionActivity extends AppCompatActivity implements SearchV
         questionWrapper = (TextInputLayout) dialogView.findViewById(R.id.question_wrapper);
 
         if (isEditMode){
-            com.simpledeveloper.businesssrecon.db.Question qEdit = mRealm.where(com.simpledeveloper.businesssrecon.db
+            com.simpledeveloper.businessrecon.db.Question qEdit = mRealm.where(com.simpledeveloper.businessrecon.db
                     .Question.class)
                     .equalTo("id", mAdapter.getItem(position).getId()).findFirst();
             questionReference.setText(qEdit.getQuestion());
@@ -173,7 +173,7 @@ public class AddNewQuestionActivity extends AppCompatActivity implements SearchV
 
                 if (isEditMode){
 
-                    com.simpledeveloper.businesssrecon.db.Question edit = mRealm.where(com.simpledeveloper.businesssrecon
+                    com.simpledeveloper.businessrecon.db.Question edit = mRealm.where(com.simpledeveloper.businessrecon
                             .db.Question.class)
                             .equalTo("id", mAdapter.getItem(position).getId())
                             .findFirst();
@@ -188,11 +188,11 @@ public class AddNewQuestionActivity extends AppCompatActivity implements SearchV
                 }else{
                     long lastQuestionId;
 
-                    RealmResults<com.simpledeveloper.businesssrecon.db.Question> questions = mRealm.where(com.simpledeveloper
-                            .businesssrecon.db.Question.class)
+                    RealmResults<com.simpledeveloper.businessrecon.db.Question> questions = mRealm.where(com.simpledeveloper
+                            .businessrecon.db.Question.class)
                             .findAllSorted("id");
 
-                    com.simpledeveloper.businesssrecon.db.Question question = new com.simpledeveloper.businesssrecon.db.Question();
+                    com.simpledeveloper.businessrecon.db.Question question = new com.simpledeveloper.businessrecon.db.Question();
 
                     if (questions.isEmpty()){
                         question.setId(0);
@@ -254,11 +254,11 @@ public class AddNewQuestionActivity extends AppCompatActivity implements SearchV
     private void initQuestions(){
         addQuestions = new ArrayList<>();
 
-        RealmResults<com.simpledeveloper.businesssrecon.db.Question> questions = mRealm.where(com.simpledeveloper
-                .businesssrecon.db.Question.class).findAllSorted("id", Sort.DESCENDING);
+        RealmResults<com.simpledeveloper.businessrecon.db.Question> questions = mRealm.where(com.simpledeveloper
+                .businessrecon.db.Question.class).findAllSorted("id", Sort.DESCENDING);
 
         if (!questions.isEmpty()){
-            for (com.simpledeveloper.businesssrecon.db.Question question: questions) {
+            for (com.simpledeveloper.businessrecon.db.Question question: questions) {
                 addQuestions.add(new Question(question.getId(), question.getQuestion(), question.getCreatedAt()));
             }
         }
@@ -316,7 +316,7 @@ public class AddNewQuestionActivity extends AppCompatActivity implements SearchV
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        RealmResults<com.simpledeveloper.businesssrecon.db.Question> questionsToDelete = mRealm.where(com.simpledeveloper.businesssrecon.db.Question
+                        RealmResults<com.simpledeveloper.businessrecon.db.Question> questionsToDelete = mRealm.where(com.simpledeveloper.businessrecon.db.Question
                                 .class)
                                 .equalTo("id", mAdapter.getItem(position).getId())
                                 .findAllSorted("id");
