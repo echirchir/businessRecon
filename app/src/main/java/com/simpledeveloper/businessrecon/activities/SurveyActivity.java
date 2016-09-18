@@ -195,6 +195,9 @@ public class SurveyActivity extends AppCompatActivity {
                         Utils.showSnackBar(getActivity(), getView(), getActivity().getString(R.string.empty_answer_field_warning));
                     }else{
                         saveAnswer(answerInput.getText().toString().trim(), qPosition);
+                        if (qPosition +1 >= questions.size()){
+                            startActivity(new Intent(getActivity(), SurveyAnswersActivity.class));
+                        }
                     }
                 }
             });
@@ -208,8 +211,6 @@ public class SurveyActivity extends AppCompatActivity {
 
             if (qPosition < questions.size()){
                 textView.setText(questions.get(qPosition).getQuestion());
-            }else{
-                startActivity(new Intent(getActivity(), SurveyAnswersActivity.class));
             }
 
             return rootView;
