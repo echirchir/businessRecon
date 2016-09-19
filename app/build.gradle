@@ -14,7 +14,8 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -23,7 +24,6 @@ android {
 repositories {
     mavenCentral()
     maven { url "https://jitpack.io" }
-
 }
 
 dependencies {
