@@ -43,7 +43,7 @@
     <string name="empty_answer_field_warning">Answer field cannot be empty!</string>
     <string name="ok">OK</string>
     <string name="record_survey">Speak to record</string>
-    <string name="survey_answer_field">Answer successfully saved!</string>
+    <string name="survey_answer_field">Answer successfully saved. Swipe for next question!</string>
     <string name="answer_already_saved">This answer has already been saved!</string>
     <string name="actions">Actions</string>
     <string name="confirm_delete_answer">Delete this answer?</string>
